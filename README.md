@@ -15,10 +15,12 @@ For more information, refer to the image relocation repository [README](https://
 ## Installing and upgrading
 
 To install `prel` either download a suitable binary release for your platform from the
-[releases](https://github.com/pivotal/scdf-k8s-prel/releases) page or, if you have Go installed, issue:
+[releases](https://github.com/pivotal/scdf-k8s-prel/releases) page or, if you have Go and make installed, clonse this repository,
+change directory into it, and then issue the following:
 ```
-GO111MODULE=on go get -u github.com/pivotal/scdf-k8s-prel/cmd/prel
+make prel
 ```
+Add the binary to your path if necessary.
 
 You can check which version you have installed by issuing:
 ```
@@ -101,9 +103,14 @@ same digest of an image as when the image has been pushed to a registry. Consequ
 
 # Development
 
-To run the tests, [install Go](https://golang.org/doc/install) and then issue the following from the root directory of this repository:
+To run the tests, [install Go](https://golang.org/doc/install) and `make` and then issue the following from the root directory of this repository:
 ```
-go test ./...
+make test
+```
+
+Check linting (so you don't get caught out by CI), after installing [golangci-lint](https://golangci-lint.run/):
+```
+make lint
 ```
 
 To create a release on github, merge a commit which removes "-snapshot" from [VERSION](VERSION) (and, optionally,
