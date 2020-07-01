@@ -1,0 +1,2 @@
+# properties file with no images so it can be used in a unit test
+a=b

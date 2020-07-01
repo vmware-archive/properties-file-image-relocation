@@ -31,7 +31,7 @@ prel --version
 
 A Java properties file is a collection of named properties with a _de facto_ standard [format](https://en.wikipedia.org/wiki/.properties).
 
-By default, `prel` interprets any property value prefixed with `docker:` or `docker:\\` as denoting an image reference. The image reference
+By default, `prel` interprets any property value prefixed with `docker:` or `docker://` as denoting an image reference. The image reference
 immediately follows the prefix and extends up to, but does not include, the next whitespace character or end of file, whichever occurs first.
 So, for example, the following property:
 ```
@@ -42,8 +42,8 @@ declares a property named `sink.cassandra` with value denoting an image with ref
 ## Configuring
 
 If you need to use other property value prefixes, you can create a [TOML](https://toml.io) configuration file named `.prel.toml` in your home directory.
-This file contains a list of prefixes. If `docker:` or `docker:\\` are required, these must be listed in the configuration file.
-For example, the following configuration will cause `prel` to recognize the prefixes `docker:` and `image:` (but _not_ `docker:\\`):
+This file contains a list of prefixes. If `docker:` or `docker://` are required, these must be listed in the configuration file.
+For example, the following configuration will cause `prel` to recognize the prefixes `docker:` and `image:` (but _not_ `docker://`):
 ```
 property_value_prefixes = [ "docker:", "image:" ]
 ```
