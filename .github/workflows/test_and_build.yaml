@@ -113,8 +113,8 @@ jobs:
       - name: build
         run: make release
       - name: upload artifacts
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: binaries
-          path: bin/
+          path: prel-*-amd64.*
 

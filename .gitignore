@@ -10,6 +10,6 @@
 vendor/
 .DS_Store
 /build
-/prel
+/bin
 /dist
 /coverage.txt

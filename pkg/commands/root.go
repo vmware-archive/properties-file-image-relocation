@@ -16,12 +16,13 @@ func NewRootCommand() *cobra.Command {
 		Use:          "prel",
 		Short:        "prel packages and relocates properties files",
 		SilenceUsage: true,
+		Run:          func(cmd *cobra.Command, _ []string) { cmd.Usage() },
 	}
 
 	cmd.Version = CliVersion()
 	cmd.Flags().Bool("version", false, "display command version")
 
-	cmd.AddCommand()
+	cmd.AddCommand(NewPackageCommand())
 
 	return cmd
 }
