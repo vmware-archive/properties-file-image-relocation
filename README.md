@@ -39,15 +39,6 @@ sink.cassandra=docker:springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE
 ```
 declares a property named `sink.cassandra` with value denoting an image with reference `springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE`.
 
-## Configuring
-
-If you need to use other property value prefixes, you can create a [TOML](https://toml.io) configuration file named `.prel.toml` in your home directory.
-This file contains a list of prefixes. If `docker:` or `docker://` are required, these must be listed in the configuration file.
-For example, the following configuration will cause `prel` to recognize the prefixes `docker:` and `image:` (but _not_ `docker://`):
-```
-property_value_prefixes = [ "docker:", "image:" ]
-```
-
 ## Packaging up a properties file and its images
 
 The `prel package` command takes a properties file and packages it up, along with any images it refers to, in a `.tgz` zipped archive.
