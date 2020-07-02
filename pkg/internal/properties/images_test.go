@@ -9,7 +9,7 @@
 package properties_test
 
 import (
-	"os"
+	"io/ioutil"
 	"testing"
 
 	"github.com/pivotal/scdf-k8s-prel/pkg/internal/properties"
@@ -17,7 +17,7 @@ import (
 )
 
 func TestImages(t *testing.T) {
-	data, err := properties.Images("./test_data/props")
+	data, err := properties.Images(mustReadFile(t, "./test_data/props"))
 	require.NoError(t, err)
 	require.ElementsMatch(t, []string{
 		"springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE",
@@ -31,15 +31,15 @@ func TestInvalidImage(t *testing.T) {
 	// Image references should include all text to the end of the line,
 	// even though that will produce an invalid image reference.
 	// This gives early warning of junk on the end of lines.
-	data, err := properties.Images("./test_data/props.invalidref")
+	data, err := properties.Images(mustReadFile(t, "./test_data/props.invalidref"))
 	require.NoError(t, err)
 	require.ElementsMatch(t, []string{
 		"imagename extra-text",
 	}, data)
 }
 
-func TestImagesFileNotFound(t *testing.T) {
-	_, err := properties.Images("./test_data/no-such")
-	require.Error(t, err)
-	require.True(t, os.IsNotExist(err))
+func mustReadFile(t *testing.T, file string) []byte {
+	data, err := ioutil.ReadFile(file)
+	require.NoError(t, err)
+	return data
 }

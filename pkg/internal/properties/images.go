@@ -10,17 +10,11 @@ import (
 	"strings"
 
 	mprops "github.com/magiconair/properties"
-	"github.com/pivotal/go-ape/pkg/furl"
 	"github.com/pivotal/scdf-k8s-prel/pkg/internal/config"
 )
 
-// Images returns the image references in the given properties file, which may be specified by file path or URL
-func Images(propsFile string) ([]string, error) {
-	data, err := furl.Read(propsFile, "")
-	if err != nil {
-		return nil, err
-	}
-
+// Images returns the image references in the given properties
+func Images(data []byte) ([]string, error) {
 	props := mprops.MustLoadString(string(data))
 	imageRefs := map[string]struct{}{}        // use a map to remove duplicates
 	props.FilterFunc(func(_, v string) bool { // use FilterFunc to iterate over the values in props

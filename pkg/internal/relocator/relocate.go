@@ -26,7 +26,12 @@ func Relocate(archivePath, repositoryPrefix, outputPath string) error {
 	}
 	defer os.RemoveAll(unpacked)
 
-	imageRefs, err := properties.Images(propsFile)
+	propsData, err := ioutil.ReadFile(propsFile)
+	if err != nil {
+		return err
+	}
+
+	imageRefs, err := properties.Images(propsData)
 	if err != nil {
 		return err
 	}

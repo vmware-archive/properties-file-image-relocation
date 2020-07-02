@@ -7,6 +7,7 @@
 package packer
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -22,6 +23,7 @@ import (
 const (
 	propertiesFilePath        = "props"
 	propertiesFilePermissions = 0666
+	standardInputIndicator    = "-"
 )
 
 // Pack packs the given properties file and its images in a tgz archive with the given file path
@@ -35,16 +37,26 @@ func Pack(props, archivePath string) error {
 	}
 	defer os.RemoveAll(archiveDir)
 
-	propsData, err := furl.Read(props, "")
-	if err != nil {
-		return err
+	var propsData []byte
+	if props == standardInputIndicator {
+		var buf bytes.Buffer
+		if _, err := io.Copy(&buf, os.Stdin); err != nil {
+			return err
+		}
+		propsData = buf.Bytes()
+	} else {
+		var err error
+		propsData, err = furl.Read(props, "")
+		if err != nil {
+			return err
+		}
 	}
 
 	if err := ioutil.WriteFile(filepath.Join(archiveDir, propertiesFilePath), propsData, propertiesFilePermissions); err != nil {
 		return err
 	}
 
-	imageRefs, err := properties.Images(props)
+	imageRefs, err := properties.Images(propsData)
 	if err != nil {
 		return err
 	}
