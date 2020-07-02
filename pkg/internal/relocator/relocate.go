@@ -32,8 +32,14 @@ func Relocate(archivePath, repositoryPrefix, outputPath string) error {
 	}
 
 	mapping, err := ocilayout.RelocateImages(unpacked, imageRefs, repositoryPrefix)
+	if err != nil {
+		return err
+	}
 
 	relocatedProperties, err := properties.Relocate(propsFile, mapping)
+	if err != nil {
+		return err
+	}
 
 	fmt.Printf("Creating relocated properties file %s\n", outputPath)
 	return ioutil.WriteFile(outputPath, relocatedProperties, 0666)
