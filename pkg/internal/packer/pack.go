@@ -19,6 +19,11 @@ import (
 	"github.com/pivotal/scdf-k8s-prel/pkg/internal/properties"
 )
 
+const (
+	propertiesFilePath        = "props"
+	propertiesFilePermissions = 0666
+)
+
 // Pack packs the given properties file and its images in a tgz archive with the given file path
 func Pack(props, archivePath string) error {
 	archiveDir, err := ioutil.TempDir("", "prel-packer")
@@ -35,7 +40,7 @@ func Pack(props, archivePath string) error {
 		return err
 	}
 
-	if err := ioutil.WriteFile(filepath.Join(archiveDir, "props"), propsData, 0666); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(archiveDir, propertiesFilePath), propsData, propertiesFilePermissions); err != nil {
 		return err
 	}
 
@@ -48,6 +53,7 @@ func Pack(props, archivePath string) error {
 		return err
 	}
 
+	fmt.Printf("Creating zipped archive %s\n", archivePath)
 	writer, err := os.Create(archivePath)
 	if err != nil {
 		return fmt.Errorf("Error creating archive file: %s", err)

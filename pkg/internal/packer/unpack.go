@@ -10,21 +10,23 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 
 	"github.com/moby/moby/pkg/archive"
 )
 
-// Unpack decompresses the given tgz archive to a temporary directory and returns the directory.
+// Unpack decompresses the given tgz archive (created using Pack) to a temporary directory and
+// returns the directory and the path of the properties file in the directory.
 // It is the caller's responsibility to delete the temporary directory
-func Unpack(archiveDir string) (string, error) {
+func Unpack(archiveDir string) (string, string, error) {
 	unpackDir, err := ioutil.TempDir("", "prel-packer")
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	reader, err := os.Open(archiveDir)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	defer reader.Close()
 
@@ -36,8 +38,8 @@ func Unpack(archiveDir string) (string, error) {
 		NoLchown: true,
 	}
 	if err := archive.Untar(reader, unpackDir, tarOptions); err != nil {
-		return "", fmt.Errorf("untar failed: %s", err)
+		return "", "", fmt.Errorf("untar failed: %s", err)
 	}
 
-	return unpackDir, nil
+	return unpackDir, filepath.Join(unpackDir, propertiesFilePath), nil
 }
