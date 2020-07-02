@@ -11,6 +11,7 @@ package packer_test
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"runtime"
 	"testing"
@@ -28,10 +29,11 @@ func TestPackUnpack(t *testing.T) {
 	err = packer.Pack("./test_data/props", archivePath)
 	require.NoError(t, err)
 
-	unpacked, err := packer.Unpack(archivePath)
+	unpacked, propsFile, err := packer.Unpack(archivePath)
 	require.NoError(t, err)
+	defer os.RemoveAll(unpacked)
 
-	data, err := ioutil.ReadFile(filepath.Join(unpacked, "props"))
+	data, err := ioutil.ReadFile(propsFile)
 	require.NoError(t, err)
 
 	require.Equal(t, fmt.Sprintf("# properties file with no images so it can be used in a unit test%sa=b", endOfLine()), string(data))

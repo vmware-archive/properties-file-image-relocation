@@ -60,13 +60,47 @@ func TestPackage(t *testing.T) {
 		require.NoError(t, err, string(output))
 	}
 
-	unpacked, err := packer.Unpack(archivePath)
+	unpacked, propsPath, err := packer.Unpack(archivePath)
+	require.NoError(t, err)
+	defer os.RemoveAll(unpacked)
+
+	data, err := ioutil.ReadFile(propsPath)
 	require.NoError(t, err)
 
-	data, err := ioutil.ReadFile(filepath.Join(unpacked, "props"))
+	expected := "# integration test with small images\na=b\nalpine=docker:amd64/alpine:latest\nc=d\nhello:docker://amd64/hello-world:latest\ne=f"
+	expected = strings.ReplaceAll(expected, "\n", endOfLine())
+	require.Equal(t, expected, string(data))
+}
+
+func TestRelocate(t *testing.T) {
+	// If no registry is available, skip the test.
+	registry, registryPresent := os.LookupEnv("REGISTRY")
+	if !registryPresent {
+		t.Skip("Skipping relocation integration test since REGISTRY environment variable is not set")
+		return
+	}
+
+	work, err := ioutil.TempDir("", "prel-integration-test")
 	require.NoError(t, err)
 
-	expected := "# integration test with small images\na=b\nalpine=docker:amd64/alpine:latest\nc=d\ndocker:oddlynamed=docker://amd64/hello-world:latest\ne=f"
+	archivePath := filepath.Join(work, "test.tgz")
+
+	prelBin := os.Getenv("PREL_EXECUTABLE")
+	if output, err := exec.Command(prelBin, "package", "./test_data/props", "--archive", archivePath).CombinedOutput(); err != nil {
+		require.NoError(t, err, string(output))
+	}
+
+	relocatedPropertiesPath := filepath.Join(work, "props.relocated")
+
+	if output, err := exec.Command(prelBin, "relocate", "--repository-prefix", registry+"/user", archivePath, "--output", relocatedPropertiesPath).CombinedOutput(); err != nil {
+		require.NoError(t, err, string(output))
+	}
+
+	data, err := ioutil.ReadFile(relocatedPropertiesPath)
+	require.NoError(t, err)
+
+	expected := fmt.Sprintf("# integration test with small images\na = b\nalpine = docker:%s/user/amd64-alpine-2ce5bd4449b9abea56a42cfb3d073c8e:latest\nc = d\n"+
+		"hello = docker://%s/user/amd64-hello-world-c2d67489afc2278fc40cab6d4d34b521:latest\ne = f\n", registry, registry)
 	expected = strings.ReplaceAll(expected, "\n", endOfLine())
 	require.Equal(t, expected, string(data))
 }

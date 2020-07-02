@@ -22,7 +22,10 @@ func NewRootCommand() *cobra.Command {
 	cmd.Version = CliVersion()
 	cmd.Flags().Bool("version", false, "display command version")
 
-	cmd.AddCommand(NewPackageCommand())
+	cmd.AddCommand(
+		NewPackageCommand(),
+		NewRelocateCommand(),
+	)
 
 	return cmd
 }

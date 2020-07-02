@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestImageDetection(t *testing.T) {
+func TestImages(t *testing.T) {
 	data, err := properties.Images("./test_data/props")
 	require.NoError(t, err)
 	require.ElementsMatch(t, []string{
@@ -27,7 +27,18 @@ func TestImageDetection(t *testing.T) {
 	}, data)
 }
 
-func TestImageDetectionFileNotFound(t *testing.T) {
+func TestInvalidImage(t *testing.T) {
+	// Image references should include all text to the end of the line,
+	// even though that will produce an invalid image reference.
+	// This gives early warning of junk on the end of lines.
+	data, err := properties.Images("./test_data/props.invalidref")
+	require.NoError(t, err)
+	require.ElementsMatch(t, []string{
+		"imagename extra-text",
+	}, data)
+}
+
+func TestImagesFileNotFound(t *testing.T) {
 	_, err := properties.Images("./test_data/no-such")
 	require.Error(t, err)
 	require.True(t, os.IsNotExist(err))

@@ -58,7 +58,7 @@ jobs:
       - name: Run tests
         env:
           REGISTRY: localhost:${{ job.services.registry.ports['5000'] }}
-        run: go test -tags=integration ./... -count=1
+        run: make integration
 
   integration-windows:
     runs-on: windows-latest
@@ -71,9 +71,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Run tests
-        env:
-          REGISTRY_UNAVAILABLE: true
-        run: go test -tags=integration ./... -count=1
+        run: make integration
 
   coverage:
     runs-on: ubuntu-latest

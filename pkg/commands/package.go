@@ -18,7 +18,8 @@ func NewPackageCommand() *cobra.Command {
 	var archivePath string
 	cmd := &cobra.Command{
 		Use:   "package PROPERTIES-FILE-PATH",
-		Short: "Package a properties file and its images into a zipped archive",
+		Short: "Package a properties file and its images in a zipped archive",
+		Long:  `Package a UTF-8 encoded properties file and its docker and OCI images in a zipped archive`,
 		Args:  cobra.ExactArgs(1), // the properties file
 		Run: func(_ *cobra.Command, args []string) {
 			if err := packer.Pack(args[0], archivePath); err != nil {

@@ -1,6 +1,8 @@
-# test data
-sink.cassandra=docker:springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE trailing data which should be ignored
+# cassandra comment
+sink.cassandra=docker:springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE
 sink.cassandra.metadata=maven://org.springframework.cloud.stream.app:cassandra-sink-rabbit:jar:metadata:2.1.2.RELEASE
+# counter
+# comments
 sink.counter=docker:springcloudstream/counter-sink-rabbit:2.1.2.RELEASE
 sink.counter.metadata=maven://org.springframework.cloud.stream.app:counter-sink-rabbit:jar:metadata:2.1.2.RELEASE
 sink.file=docker://springcloudstream/file-sink-rabbit:2.1.2.RELEASE
@@ -8,3 +10,4 @@ sink.file.metadata=maven://org.springframework.cloud.stream.app:file-sink-rabbit
 sink.ftp=docker:springcloudstream/ftp-sink-rabbit:2.1.2.RELEASE
 sink.ftp.metadata=maven://org.springframework.cloud.stream.app:ftp-sink-rabbit:jar:metadata:2.1.2.RELEASE
 another.cassandra=docker://springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE
+# trailing comment

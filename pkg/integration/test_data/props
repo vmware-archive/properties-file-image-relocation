@@ -2,5 +2,5 @@
 a=b
 alpine=docker:amd64/alpine:latest
 c=d
-docker:oddlynamed=docker://amd64/hello-world:latest
+hello:docker://amd64/hello-world:latest
 e=f
