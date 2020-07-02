@@ -56,7 +56,7 @@ func TestPackage(t *testing.T) {
 	archivePath := filepath.Join(work, "test.tgz")
 
 	prelBin := os.Getenv("PREL_EXECUTABLE")
-	if output, err := exec.Command(prelBin, "package", "./test_data/props", "--archive", archivePath).CombinedOutput(); err != nil {
+	if output, err := exec.Command(prelBin, "package", "--file", "./test_data/props", "--archive", archivePath).CombinedOutput(); err != nil {
 		require.NoError(t, err, string(output))
 	}
 
@@ -86,13 +86,13 @@ func TestRelocate(t *testing.T) {
 	archivePath := filepath.Join(work, "test.tgz")
 
 	prelBin := os.Getenv("PREL_EXECUTABLE")
-	if output, err := exec.Command(prelBin, "package", "./test_data/props", "--archive", archivePath).CombinedOutput(); err != nil {
+	if output, err := exec.Command(prelBin, "package", "--file", "./test_data/props", "--archive", archivePath).CombinedOutput(); err != nil {
 		require.NoError(t, err, string(output))
 	}
 
 	relocatedPropertiesPath := filepath.Join(work, "props.relocated")
 
-	if output, err := exec.Command(prelBin, "relocate", "--repository-prefix", registry+"/user", archivePath, "--output", relocatedPropertiesPath).CombinedOutput(); err != nil {
+	if output, err := exec.Command(prelBin, "relocate", "--archive", archivePath, "--repository-prefix", registry+"/user", "--output", relocatedPropertiesPath).CombinedOutput(); err != nil {
 		require.NoError(t, err, string(output))
 	}
 

@@ -47,7 +47,12 @@ The images are stored in a standard [OCI image layout](https://github.com/openco
 The properties file may be specified using a file system path or as a HTTP/HTTPS URL. For example, the following command takes a
 properties file at `https://dataflow.spring.io/rabbitmq-docker-latest` and packages it up into a zipped archive named `rabbitmq-docker.tgz`:
 ```
-prel package https://dataflow.spring.io/rabbitmq-docker-latest --archive rabbitmq-docker.tgz
+prel package --file https://dataflow.spring.io/rabbitmq-docker-latest --archive rabbitmq-docker.tgz
+```
+
+Passing a value of `-` to `--file` causes `prel` to read the properties from standard input. For example:
+```
+grep -v '.metadata:' rabbitmq-docker-latest | prel package --file - --archive rabbitmq-docker.tgz
 ```
 
 For detailed help on the command, issue:
@@ -65,7 +70,7 @@ relocated counterparts.
 relocated image references. For example, the following command relocates the zipped archive `rabbitmq-docker.tgz` with a repository prefix of
 `example.com/user` and creates the relocated properties file in `rabbitmq-docker.properties`:
 ```
-prel relocate rabbitmq-docker.tgz --repository-prefix example.com/user --output rabbitmq-docker.properties
+prel relocate --archive rabbitmq-docker.tgz --repository-prefix example.com/user --output rabbitmq-docker.properties
 ```
 
 As an example of how `prel relocate` maps image references, the reference `springcloudstream/cassandra-sink-rabbit:2.1.2.RELEASE` above
