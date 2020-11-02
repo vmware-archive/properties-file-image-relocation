@@ -7,9 +7,9 @@ GO_SOURCES = $(shell find . -type f -name '*.go')
 VERSION ?= $(shell cat VERSION)
 GITSHA = $(shell git rev-parse HEAD)
 GITDIRTY = $(shell git diff --quiet HEAD || echo "dirty")
-LDFLAGS_VERSION = -X github.com/pivotal/scdf-k8s-prel/pkg/commands.cliVersion=$(VERSION) \
-				  -X github.com/pivotal/scdf-k8s-prel/pkg/commands.cliGitsha=$(GITSHA) \
-				  -X github.com/pivotal/scdf-k8s-prel/pkg/commands.cliGitdirty=$(GITDIRTY)
+LDFLAGS_VERSION = -X github.com/vmware-tanzu/properties-file-image-relocation/pkg/commands.cliVersion=$(VERSION) \
+				  -X github.com/vmware-tanzu/properties-file-image-relocation/pkg/commands.cliGitsha=$(GITSHA) \
+				  -X github.com/vmware-tanzu/properties-file-image-relocation/pkg/commands.cliGitdirty=$(GITDIRTY)
 
 test:
 	GO111MODULE=on go test ./pkg/...

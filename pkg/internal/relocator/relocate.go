@@ -11,9 +11,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/ocilayout"
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/packer"
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/properties"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/ocilayout"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/packer"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/properties"
 )
 
 // Relocate relocates the images in the zipped archive at the given path by

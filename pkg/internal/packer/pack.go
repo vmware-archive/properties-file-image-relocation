@@ -16,8 +16,8 @@ import (
 
 	"github.com/moby/moby/pkg/archive"
 	"github.com/pivotal/go-ape/pkg/furl"
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/ocilayout"
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/properties"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/ocilayout"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/properties"
 )
 
 const (

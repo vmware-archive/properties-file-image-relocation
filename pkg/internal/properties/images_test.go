@@ -12,8 +12,8 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/properties"
 	"github.com/stretchr/testify/require"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/properties"
 )
 
 func TestImages(t *testing.T) {

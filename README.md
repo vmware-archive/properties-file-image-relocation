@@ -1,4 +1,4 @@
-# scdf-k8s-prel
+# properties-file-image-relocation
 Image relocation for Java properties files.
 
 # Usage
@@ -15,7 +15,7 @@ For more information, refer to the image relocation repository [README](https://
 ## Installing and upgrading
 
 To install `prel` either download and unpack a suitable binary release for your platform from the
-[releases](https://github.com/pivotal/scdf-k8s-prel/releases) page or, if you have Go and make installed, clonse this repository,
+[releases](https://github.com/vmware-tanzu/properties-file-image-relocation/releases) page or, if you have Go and make installed, clonse this repository,
 change directory into it, and then issue the following:
 ```
 make prel

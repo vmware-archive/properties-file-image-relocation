@@ -1,4 +1,4 @@
-module github.com/pivotal/scdf-k8s-prel
+module github.com/vmware-tanzu/properties-file-image-relocation
 
 go 1.14
 

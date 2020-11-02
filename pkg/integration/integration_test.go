@@ -18,8 +18,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/packer"
 	"github.com/stretchr/testify/require"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/packer"
 )
 
 func TestMain(m *testing.M) {
