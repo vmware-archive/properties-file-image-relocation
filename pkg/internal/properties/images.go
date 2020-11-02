@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	mprops "github.com/magiconair/properties"
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/config"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/config"
 )
 
 // Images returns the image references in the given properties

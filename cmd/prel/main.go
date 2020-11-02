@@ -9,7 +9,7 @@ package main
 import (
 	"os"
 
-	"github.com/pivotal/scdf-k8s-prel/pkg/commands"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/commands"
 )
 
 func main() {

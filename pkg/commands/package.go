@@ -9,8 +9,8 @@ package commands
 import (
 	"log"
 
-	"github.com/pivotal/scdf-k8s-prel/pkg/internal/packer"
 	"github.com/spf13/cobra"
+	"github.com/vmware-tanzu/properties-file-image-relocation/pkg/internal/packer"
 )
 
 // NewPackageCommand creates a package command.
