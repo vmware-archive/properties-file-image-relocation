@@ -76,7 +76,7 @@ func TestRelocate(t *testing.T) {
 	// If no registry is available, skip the test.
 	registry, registryPresent := os.LookupEnv("REGISTRY")
 	if !registryPresent {
-		t.Skip("Skipping relocation integration test since REGISTRY environment variable is not set")
+		t.Log("Skipping relocation integration test since REGISTRY environment variable is not set")
 		return
 	}
 
