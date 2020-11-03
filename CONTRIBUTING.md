@@ -64,7 +64,7 @@ notification when you git push.
 
 ### Formatting Commit Messages
 
-We follow the conventions on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/).
+We follow the conventions on [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/).
 
 Be sure to include any related GitHub issue references in the commit message.  See
 [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for referencing issues
