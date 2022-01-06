@@ -1,6 +1,8 @@
 # properties-file-image-relocation
 Image relocation for Java properties files.
 
+> **NOTICE** As of October 31, 2021, any use of this project is deprecated and we recommend using [Carvel imgpkg](https://carvel.dev/imgpkg/) instead.
+
 # Usage
 
 The `prel` utility takes a properties file along with the images it refers to and packages them up in a zipped archive.
